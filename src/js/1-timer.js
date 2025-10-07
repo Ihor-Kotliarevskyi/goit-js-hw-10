@@ -30,7 +30,57 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-iziToast.show({
-  title: 'Hey',
-  message: 'What would you like to add?',
-});
+const date = document.querySelector('#datetime-picker');
+const btn = document.querySelector('[data-start]');
+const howDays = document.querySelector('[data-days]');
+const howHours = document.querySelector('[data-hours]');
+const howMinutes = document.querySelector('[data-minutes]');
+const howSeconds = document.querySelector('[data-seconds]');
+
+date.addEventListener('input', handlerInput);
+btn.addEventListener('click', handlerClick);
+
+let intervalId = 0;
+btn.disabled = true;
+
+function handlerInput() {
+  if (Date.parse(date.value) > Date.now()) {
+    btn.disabled = false;
+  } else {
+    btn.disabled = true;
+    iziToast.error({
+      message: 'Please choose a date in the future',
+      position: 'topCenter',
+      timeout: 5000,
+      progressBar: false,
+      transitionIn: 'fadeInDown',
+    });
+  }
+}
+
+function handlerClick() {
+  if (btn.dataset.start === '' && Date.parse(date.value) > Date.now()) {
+    intervalId = setInterval(() => {
+      let interval = Date.parse(date.value) - Date.now();
+
+      if (interval === 0) {
+        clearInterval(intervalId);
+      } else {
+        howDays.textContent = convertMs(interval).days;
+        howHours.textContent = convertMs(interval).hours;
+        howMinutes.textContent = convertMs(interval).minutes;
+        howSeconds.textContent = convertMs(interval).seconds;
+      }
+    }, 1000);
+
+    date.disabled = true;
+    btn.textContent = 'Stop';
+    btn.dataset.start = 'Stop';
+    console.log(btn.dataset, intervalId);
+  } else {
+    btn.textContent = 'Start';
+    btn.dataset.start = '';
+    console.log(btn.dataset, intervalId);
+    clearInterval(intervalId);
+  }
+}
