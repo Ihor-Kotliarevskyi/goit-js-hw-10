@@ -31,19 +31,20 @@ function convertMs(ms) {
 }
 
 const date = document.querySelector('#datetime-picker');
-const btn = document.querySelector('[data-start]');
-const howDays = document.querySelector('[data-days]');
-const howHours = document.querySelector('[data-hours]');
-const howMinutes = document.querySelector('[data-minutes]');
-const howSeconds = document.querySelector('[data-seconds]');
+const btn = document.querySelector('button[data-start]');
+const howDays = document.querySelector('span[data-days]');
+const howHours = document.querySelector('span[data-hours]');
+const howMinutes = document.querySelector('span[data-minutes]');
+const howSeconds = document.querySelector('span[data-seconds]');
 
-date.addEventListener('input', handlerInput);
-btn.addEventListener('click', handlerClick);
+date.addEventListener('input', chooseDate);
+btn.addEventListener('click', runAndStopTimer);
 
-let intervalId = 0;
+let intervalId = null;
 btn.disabled = true;
+date.disabled = false;
 
-function handlerInput() {
+function chooseDate() {
   if (Date.parse(date.value) > Date.now()) {
     btn.disabled = false;
   } else {
@@ -58,29 +59,32 @@ function handlerInput() {
   }
 }
 
-function handlerClick() {
+function runAndStopTimer() {
   if (btn.dataset.start === '' && Date.parse(date.value) > Date.now()) {
     intervalId = setInterval(() => {
-      let interval = Date.parse(date.value) - Date.now();
+      let deltaTime = Date.parse(date.value) - Date.now();
 
-      if (interval === 0) {
+      if (deltaTime <= 0) {
+        date.disabled = false;
+        btn.disabled = true;
+        btn.textContent = 'Start';
+        btn.dataset.start = '';
         clearInterval(intervalId);
       } else {
-        howDays.textContent = convertMs(interval).days;
-        howHours.textContent = convertMs(interval).hours;
-        howMinutes.textContent = convertMs(interval).minutes;
-        howSeconds.textContent = convertMs(interval).seconds;
+        howSeconds.textContent = convertMs(deltaTime).seconds;
+        howMinutes.textContent = convertMs(deltaTime).minutes;
+        howHours.textContent = convertMs(deltaTime).hours;
+        howDays.textContent = convertMs(deltaTime).days;
       }
     }, 1000);
 
     date.disabled = true;
     btn.textContent = 'Stop';
     btn.dataset.start = 'Stop';
-    console.log(btn.dataset, intervalId);
   } else {
+    date.disabled = false;
     btn.textContent = 'Start';
     btn.dataset.start = '';
-    console.log(btn.dataset, intervalId);
     clearInterval(intervalId);
   }
 }
