@@ -1,12 +1,30 @@
-.back-link {
+.back-link,
+.link {
+  box-sizing: border-box;
   position: relative;
   display: inline-block;
   padding: 4px 8px;
   margin-top: 32px;
-  border: 1px solid;
+  margin-bottom: 32px;
+  border: 1px solid #afaaaa;
   border-radius: 8px;
+  font-weight: 500;
+  color: #2a7efb;
 }
-.back-link::before {
+
+.back-link:hover {
+  background-color: #afaaaa;
+  color: #f1f1f1;
+  border: none;
+}
+.link:hover {
+  background-color: #2a7efba1;
+  color: #565252;
+  border: none;
+}
+
+.back-link::before,
+.link::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -23,7 +41,8 @@
   animation: slide 500ms linear infinite alternate-reverse both;
   animation-play-state: paused;
 }
-.back-link:hover::before {
+.back-link:hover::before,
+.link:hover::before {
   opacity: 1;
   animation-play-state: running;
 }

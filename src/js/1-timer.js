@@ -36,6 +36,9 @@ const howDays = document.querySelector('span[data-days]');
 const howHours = document.querySelector('span[data-hours]');
 const howMinutes = document.querySelector('span[data-minutes]');
 const howSeconds = document.querySelector('span[data-seconds]');
+const label = document.querySelectorAll('.label');
+
+label.forEach(item => (item.textContent = item.textContent.toUpperCase()));
 
 date.addEventListener('input', chooseDate);
 btn.addEventListener('click', runAndStopTimer);
@@ -71,10 +74,22 @@ function runAndStopTimer() {
         btn.dataset.start = '';
         clearInterval(intervalId);
       } else {
-        howSeconds.textContent = convertMs(deltaTime).seconds;
-        howMinutes.textContent = convertMs(deltaTime).minutes;
-        howHours.textContent = convertMs(deltaTime).hours;
-        howDays.textContent = convertMs(deltaTime).days;
+        howSeconds.textContent = String(convertMs(deltaTime).seconds).padStart(
+          2,
+          '0'
+        );
+        howMinutes.textContent = String(convertMs(deltaTime).minutes).padStart(
+          2,
+          '0'
+        );
+        howHours.textContent = String(convertMs(deltaTime).hours).padStart(
+          2,
+          '0'
+        );
+        howDays.textContent = String(convertMs(deltaTime).days).padStart(
+          2,
+          '0'
+        );
       }
     }, 1000);
 
