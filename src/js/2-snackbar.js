@@ -2,14 +2,13 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 const form = document.querySelector('.form');
-const delayInput = document.querySelector('.form input');
 
 form.addEventListener('submit', createPromise);
 
 function createPromise(event) {
   event.preventDefault();
 
-  const delay = delayInput.value;
+  const delay = Number(event.target.elements.delay.value);
   const state = event.target.elements.state.value;
 
   new Promise((resolve, reject) => {
@@ -23,8 +22,9 @@ function createPromise(event) {
   })
     .then(delay => {
       iziToast.success({
+        title: 'Ok',
         message: `Fulfilled promise in ${delay}ms`,
-        position: 'topRight',
+        position: 'bottomRight',
         timeout: 3000,
         progressBar: false,
         transitionIn: 'fadeInDown',
@@ -32,31 +32,14 @@ function createPromise(event) {
     })
     .catch(delay => {
       iziToast.error({
+        title: 'Error',
         message: `Rejected promise in ${delay}ms`,
-        position: 'topRight',
+        position: 'bottomRight',
         timeout: 3000,
         progressBar: false,
         transitionIn: 'fadeInDown',
       });
     });
-
-  // if (state === 'fulfilled') {
-  //   iziToast.success({
-  //     message: `Fulfilled promise in ${delay}ms`,
-  //     position: 'topRight',
-  //     timeout: 50000,
-  //     progressBar: false,
-  //     transitionIn: 'fadeInDown',
-  //   });
-  // } else {
-  //   iziToast.error({
-  //     message: `Rejected promise in ${delay}ms`,
-  //     position: 'topRight',
-  //     timeout: 50000,
-  //     progressBar: false,
-  //     transitionIn: 'fadeInDown',
-  //   });
-  // }
 
   form.reset();
 }

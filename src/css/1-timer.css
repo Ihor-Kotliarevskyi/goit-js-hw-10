@@ -16,7 +16,7 @@
 }
 
 .date-time:focus {
-  outline: 1px solid #4e75ff;
+  border: 1px solid #4e75ff;
 }
 
 .date-time:disabled {
@@ -40,6 +40,7 @@
 }
 
 .start-stop-button:hover {
+  background: #6c8cff;
 }
 .start-stop-button:disabled {
   background: #cfcfcf;

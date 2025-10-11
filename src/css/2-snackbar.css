@@ -1,10 +1,120 @@
 .form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: space-between;
+  align-items: center;
 }
+
 .label-delay {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: start;
+  margin: 0;
+  font: 400 16px / 1.5 'Montserrat', sans-serif;
 }
-.label-fulfilled {
+
+.label-delay input {
+  box-sizing: border-box;
+  font: 400 16px / 1.5 'Montserrat', sans-serif;
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: #2e2f42;
+  border-radius: 4px;
+  width: 360px;
+  max-height: 40px;
+  border: 1px solid #808080;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  background: #fff;
+  padding: 8px 16px;
+  outline: none;
 }
-.label-rejected {
+
+.label-delay input:hover {
+  border: 1px solid #000;
 }
+
+.label-delay input:focus {
+  border: 1px solid #4e75ff;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+  justify-content: center;
+  padding: 24px 48px 8px 48px;
+  box-sizing: border-box;
+  font: 400 16px / 1.5 'Montserrat', sans-serif;
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: #2e2f42;
+  border-radius: 4px;
+  width: 360px;
+  height: auto;
+  border: 1px solid #808080;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  outline: none;
+}
+
+input[type='radio'] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #757575;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+input[type='radio']:hover {
+  border-color: #000;
+}
+
+input[value='fulfilled']:checked {
+  border-color: green;
+  background-color: green;
+  box-shadow: 0 0 0 3px rgba(0, 128, 0, 0.2);
+}
+
+input[value='rejected']:checked {
+  border-color: red;
+  background-color: red;
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
+}
+
+input[type='radio']:active {
+  transform: scale(0.95);
+}
+
+fieldset:hover {
+  border-color: #000;
+}
+
+fieldset:has(input[type='radio']:checked) {
+  border-color: #000;
+}
+
 .form-button {
+  font: 500 16px / 1.5 'Montserrat', sans-serif;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 360px;
+  height: 40px;
+  background: #4e75ff;
+  padding: 8px 16px;
+  margin-top: 8px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.form-button:hover {
+  background: #6c8cff;
 }
