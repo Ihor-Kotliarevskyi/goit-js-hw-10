@@ -32,7 +32,7 @@ const label = document.querySelectorAll('.label');
 
 label.forEach(item => (item.textContent = item.textContent.toUpperCase()));
 
-btn.addEventListener('click', runAndStopTimer);
+btn.addEventListener('click', runTimer);
 
 let intervalId = null;
 let userSelectedDate = '';
@@ -63,32 +63,21 @@ const options = {
 
 flatpickr('#datetime-picker', options);
 
-function runAndStopTimer() {
-  if (btn.dataset.start === '') {
-    intervalId = setInterval(() => {
-      let deltaTime = Date.parse(userSelectedDate) - Date.now();
+function runTimer() {
+  intervalId = setInterval(() => {
+    let deltaTime = Date.parse(userSelectedDate) - Date.now();
 
-      if (deltaTime <= 0) {
-        date.disabled = false;
-        btn.disabled = true;
-        btn.textContent = 'Start';
-        btn.dataset.start = '';
-        clearInterval(intervalId);
-      } else {
-        howSeconds.textContent = addLeadingZero(convertMs(deltaTime).seconds);
-        howMinutes.textContent = addLeadingZero(convertMs(deltaTime).minutes);
-        howHours.textContent = addLeadingZero(convertMs(deltaTime).hours);
-        howDays.textContent = addLeadingZero(convertMs(deltaTime).days);
-      }
-    }, 1000);
-
-    date.disabled = true;
-    btn.textContent = 'Stop';
-    btn.dataset.start = 'Stop';
-  } else {
-    date.disabled = false;
-    btn.textContent = 'Start';
-    btn.dataset.start = '';
-    clearInterval(intervalId);
-  }
+    if (deltaTime <= 0) {
+      date.disabled = false;
+      btn.disabled = true;
+      clearInterval(intervalId);
+    } else {
+      date.disabled = true;
+      btn.disabled = true;
+      howSeconds.textContent = addLeadingZero(convertMs(deltaTime).seconds);
+      howMinutes.textContent = addLeadingZero(convertMs(deltaTime).minutes);
+      howHours.textContent = addLeadingZero(convertMs(deltaTime).hours);
+      howDays.textContent = addLeadingZero(convertMs(deltaTime).days);
+    }
+  }, 1000);
 }
